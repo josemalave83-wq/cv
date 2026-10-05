@@ -27,15 +27,30 @@
 @media(max-width:800px){.career-order{padding:18px 14px 0}.career-order ol{gap:12px 20px}.project-section h2{font-size:18px}}
 .header-contact{font-style:normal;display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:18px;font-size:14px;line-height:1.6}.header-contact a{color:#476579;text-decoration:none}.header-contact a:hover{text-decoration:underline}.letter-privacy{font-size:16px;line-height:1.8;color:#364d5e;margin:28px 0 0}.letter-preview{max-width:850px}.letter-preview img{width:100%;height:auto;max-width:none;border:1px solid var(--line)}
 @media(max-width:600px){.header-contact{gap:8px 20px;font-size:14px}}
+
+/* Simple text tabs: individual colors, with an underline for selection. */
+.main-tabs{display:flex;flex-wrap:wrap;gap:12px 32px;border:0;padding:0}
+.main-tabs button{--tab-color:#245d88;background:none;color:var(--tab-color);border:0;border-radius:0;padding:12px 0;min-height:48px;font-size:16px;font-weight:600;line-height:1.45;text-align:left;position:relative}
+.main-tabs #func-tab{--tab-color:#24665f}
+.main-tabs #achievements-tab{--tab-color:#695184}
+.main-tabs #recommendation-tab{--tab-color:#586475}
+.main-tabs button:hover{background:none;color:var(--tab-color);text-decoration:underline;text-underline-offset:6px;box-shadow:none}
+.main-tabs button[aria-selected=true]{background:none;color:var(--tab-color);font-weight:700;box-shadow:none}
+.main-tabs button[aria-selected=true]:after{display:block;content:'';height:3px;background:var(--tab-color);position:absolute;bottom:0;left:0;right:0}
+@media(max-width:800px){.main-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px}.main-tabs button{padding:12px 0;font-size:15px;min-height:48px}}
+.contact-item{display:inline-flex;align-items:center;gap:8px;max-width:100%}.header-contact a{overflow-wrap:anywhere}
+.copy-contact{border:0;background:none;color:#61717e;font-size:12px;padding:10px 4px;min-height:44px;text-decoration:underline;text-underline-offset:3px}.copy-contact:hover{color:#245d88}
+.contact-status{font-size:12px;color:#24665f;margin:4px 0 0;min-height:18px}
+@media(max-width:600px){.header-contact{gap:0 18px;margin-top:12px}}
 </style></head>
 <body>
 <main>
-  <header><div class="header-rule"></div><h1>Jose Malavé</h1><p class="profile">STRATEGIC TREASURY &amp; FINANCIAL RISK <span>|</span> JV MANAGEMENT <span>|</span> CORPORATE FINANCE</p><address class="header-contact" aria-label="Contact Jose Malavé"><a href="tel:+31615113674">+31 615 113674</a><a href="tel:+34681391530">+34 681 391530</a><a href="mailto:josemalave83@gmail.com">josemalave83@gmail.com</a></address></header>
+  <header><div class="header-rule"></div><h1>Jose Malavé</h1><p class="profile">STRATEGIC TREASURY &amp; FINANCIAL RISK <span>|</span> JV MANAGEMENT <span>|</span> CORPORATE FINANCE</p><address class="header-contact" aria-label="Contact Jose Malavé"><span class="contact-item"><a href="tel:+31615113674" title="Call Netherlands number">+31 615 113674</a><button type="button" class="copy-contact" data-copy="+31615113674" aria-label="Copy Netherlands phone number">Copy</button></span><span class="contact-item"><a href="tel:+34681391530" title="Call Spain number">+34 681 391530</a><button type="button" class="copy-contact" data-copy="+34681391530" aria-label="Copy Spain phone number">Copy</button></span><span class="contact-item"><a href="mailto:josemalave83@gmail.com" title="Send email">josemalave83@gmail.com</a><button type="button" class="copy-contact" data-copy="josemalave83@gmail.com" aria-label="Copy email address">Copy</button></span></address><p class="contact-status" role="status" aria-live="polite"></p></header>
   <nav class="main-tabs" role="tablist" aria-label="Explore career"><button id="geo-tab" role="tab" aria-selected="true" aria-controls="geographical">Career &amp; Education</button><button id="func-tab" role="tab" aria-selected="false" aria-controls="functional" tabindex="-1">Functional</button><button id="achievements-tab" role="tab" aria-selected="false" aria-controls="achievements" tabindex="-1">Selected Projects &amp; Value Creation</button><button id="recommendation-tab" role="tab" aria-selected="false" aria-controls="recommendation" tabindex="-1">Recommendation letter</button></nav>
   <section id="geographical" role="tabpanel" aria-labelledby="geo-tab">
     <div class="map-shell">
-      <div class="map-top"><div class="legend"><span><i class="red"></i>Education &amp; development</span><span><i class="blue"></i>Professional experience</span></div><p>Hover to preview · Select to read</p></div>
-      <div class="career-order"><p>Professional experience · Newest to oldest</p><ol id="career-order"></ol></div>
+      <div class="map-top"><div class="legend"><span><i class="red"></i>Education &amp; Development</span><span><i class="blue"></i>Professional Experience</span></div><p>Hover to preview · Select to read</p></div>
+      <div class="career-order"><p>Professional Experience · Newest to oldest</p><ol id="career-order"></ol></div>
       <div id="map" class="map" aria-label="World map of education and professional experience"></div>
       <div id="popup" class="popup" role="region" aria-label="Entry preview" hidden></div>
       <div class="map-bottom"><a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Map: Natural Earth</a></div>
@@ -406,7 +421,7 @@ const bullets = list => list.length?`<ul>${list.map(p=>`<li>${esc(p)}</li>`).joi
 const roleMeta = r => `<h3>${esc(r.title)}</h3><p class="dates">${esc(r.dates)}</p>`;
 function select(id,scroll=false){
  const e=entries.find(e=>e.id===id);
- const company=`<p class="eyebrow">${e.type==='experience'?'Professional experience':'Education & development'}</p><h2>${esc(e.employer)}</h2><p class="location">${esc(e.location)}</p>`;
+ const company=`<p class="eyebrow">${e.type==='experience'?'Professional Experience':'Education & Development'}</p><h2>${esc(e.employer)}</h2><p class="location">${esc(e.location)}</p>`;
  let html='';
  if(e.roles){
   const intro=paragraphs(e.intro);
@@ -486,6 +501,20 @@ document.querySelector('main').addEventListener('click',event=>{
  resultDialog.showModal();
 });
 resultDialog.addEventListener('click',event=>{if(event.target===resultDialog)resultDialog.close()});
+
+document.querySelector('.header-contact').addEventListener('click', async event=>{
+ const button=event.target.closest('[data-copy]');
+ if(!button)return;
+ const status=document.querySelector('.contact-status');
+ try{
+  await navigator.clipboard.writeText(button.dataset.copy);
+  button.textContent='Copied';
+  status.textContent=button.dataset.copy.includes('@')?'Email address copied.':'Phone number copied without spaces.';
+  setTimeout(()=>{button.textContent='Copy';status.textContent=''},3000);
+ }catch{
+  status.textContent='Copy is unavailable in this browser. Select the contact text to copy it.';
+ }
+});
 
 // Compact chronology complements the geographical map; earlier roles share one period.
 const chronology=[{ids:['sadara'],label:'Sadara',dates:'2021–2026'},{ids:['garnatta'],label:'Garnatta',dates:'2020–2021'},{ids:['vonovia'],label:'Vonovia',dates:'2018–2020'},{ids:['enel'],label:'Enel Green Power',dates:'2013–2018'},{ids:['rabobank','inversis'],label:'Earlier experience',dates:'2006–2013'}];
