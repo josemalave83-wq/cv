@@ -523,4 +523,14 @@ $('#career-order').addEventListener('click',event=>{const button=event.target.cl
 $('#achievements').innerHTML=CV.projects.map(project=>`<article class="project-section"><h2>${esc(project.title)}</h2><div class="document-copy">${paragraphs(project.paragraphs)}</div></article>`).join('');
 $('#recommendation').innerHTML='<p class="letter-privacy">For privacy reasons, signatures are omitted from these previews. Signed copies are available only upon request.</p>'+CV.recommendations.map(letter=>`<article class="recommendation-section"><h2>${esc(letter.company)}</h2>${letter.status?`<p class="draft-status">${esc(letter.status)}</p>`:''}<button class="result-image-link letter-preview" type="button" aria-label="Enlarge ${esc(letter.company)} recommendation letter"><img src="${letter.image}" alt="${esc(letter.company)} recommendation letter. ${esc(letter.status)}. ${esc(letter.signatories.map(s=>s.slice(0,2).join(', ')).join('; '))}."></button></article>`).join('');
 </script>
+<script>
+// Record public-site visits only; local and offline previews stay untracked.
+if(location.hostname==='josemalave83-wq.github.io'){
+ const analytics=document.createElement('script');
+ analytics.dataset.goatcounter='https://josemalave83.goatcounter.com/count';
+ analytics.async=true;
+ analytics.src='https://gc.zgo.at/count.js';
+ document.head.appendChild(analytics);
+}
+</script>
 </body></html>
